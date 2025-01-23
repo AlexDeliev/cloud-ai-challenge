@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "4nb0qH2G+8M=",
+  "dgSpecHash": "Ebx5BFWWPms=",
   "success": true,
   "projectFilePath": "/workspaces/cloud-ai-challenge/cloud-ai-challenge.csproj",
   "expectedPackageFiles": [
-    "/home/vscode/.nuget/packages/azure.ai.openai/1.0.0-beta.6/azure.ai.openai.1.0.0-beta.6.nupkg.sha512",
+    "/home/vscode/.nuget/packages/azure.ai.openai/2.1.0/azure.ai.openai.2.1.0.nupkg.sha512",
     "/home/vscode/.nuget/packages/azure.ai.vision.imageanalysis/1.0.0/azure.ai.vision.imageanalysis.1.0.0.nupkg.sha512",
     "/home/vscode/.nuget/packages/azure.core/1.44.1/azure.core.1.44.1.nupkg.sha512",
     "/home/vscode/.nuget/packages/microsoft.azure.cognitiveservices.vision.computervision/7.0.1/microsoft.azure.cognitiveservices.vision.computervision.7.0.1.nupkg.sha512",
@@ -17,6 +17,7 @@
     "/home/vscode/.nuget/packages/microsoft.win32.primitives/4.3.0/microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "/home/vscode/.nuget/packages/netstandard.library/1.6.1/netstandard.library.1.6.1.nupkg.sha512",
     "/home/vscode/.nuget/packages/newtonsoft.json/10.0.3/newtonsoft.json.10.0.3.nupkg.sha512",
+    "/home/vscode/.nuget/packages/openai/2.1.0/openai.2.1.0.nupkg.sha512",
     "/home/vscode/.nuget/packages/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.2/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "/home/vscode/.nuget/packages/runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl/4.3.2/runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "/home/vscode/.nuget/packages/runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl/4.3.2/runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",

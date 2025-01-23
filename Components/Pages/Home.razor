@@ -1,28 +1,33 @@
 ﻿@page "/"
 @using Azure;
-@using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
-@using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+@using Azure.AI.Vision.Common;
+@using Azure.AI.Vision.ImageAnalysis;
+@using System;
+@using System.IO;
+@using System.Threading.Tasks;
+@using Azure.AI.OpenAI;
+@rendermode InteractiveServer
 
 <PageTitle>Home</PageTitle>
 
 <h1>Computer Vision</h1>
 
-<p>Insert an image URL to analyze:</p>
-<textarea @bind="urlOrPrompt" rows="2" cols="50"
-          placeholder="Enter an image URL to analyze"></textarea>
-<br />
-<button @onclick="AnalyzeImage">Analyze Image</button>
 
-@if (!string.IsNullOrWhiteSpace(imageUrl))
-{
-    <img src="@imageUrl" alt="Image to analyze" width="300" height="300" />
-}
+<p> Insert URL or type prompt: </p>
+
+<textarea @bind="urlOrPrompt" rows="1" cols="50"
+    placeholder="Enter URL to analzye or prompt text to generate image."></textarea>
+<button @onclick="AnalyzeImage">Analyze Image</button>
+<button @onclick="GenerateImage">Generate Image</button>
+<img src="@imageUrl" alt="Image to analyze" width="300" height="300"/>
 
 <p>@captionFromAnalysis</p>
 
-@code {
+
+@code
+{
     string urlOrPrompt = "";
-    string imageUrl = "";
+    Uri imageUrl = new Uri("https://placehold.it/300x300");
     string captionFromAnalysis = "";
 
     void AnalyzeImage()
@@ -40,7 +45,10 @@
 
         var analysisOptions = new ImageAnalysisOptions()
             {
-                Features = ImageAnalysisFeature.CropSuggestions | ImageAnalysisFeature.Caption
+                Features =
+            ImageAnalysisFeature.CropSuggestions
+            | ImageAnalysisFeature.Caption
+        
             };
 
         using var analyzer = new ImageAnalyzer(serviceOptions, imageSource, analysisOptions);
@@ -71,8 +79,30 @@
             Console.WriteLine($"   Error message: {errorDetails.Message}");
         }
 
-        
+                
 
+
+    }
+    async void GenerateImage()
+    {
+        string endpoint = Environment.GetEnvironmentVariable("OPENAI_ENDPOINT");
+            string key = Environment.GetEnvironmentVariable("OPENAI_KEY");
+
+            OpenAIClient client = new(new Uri(endpoint), new AzureKeyCredential(key));
+
+            Response<ImageGenerations> imageGenerations = await client.GetImageGenerationsAsync(
+                new ImageGenerationOptions()
+                {
+                    Prompt = urlOrPrompt,
+                    Size = ImageSize.Size256x256,
+                });
+
+            // Image Generations responses provide URLs you can use to retrieve requested images
+            Uri imageUri = imageGenerations.Value.Data[0].Url;
+            imageUrl = imageUri;
+            StateHasChanged();
+            // Print the image URI to console:
+            Console.WriteLine(imageUri);
 
     }
 }

@@ -45,7 +45,7 @@
           "dependencies": {
             "Azure.AI.OpenAI": {
               "target": "Package",
-              "version": "[1.0.0-beta.6, )"
+              "version": "[2.1.0, )"
             },
             "Azure.AI.Vision.ImageAnalysis": {
               "target": "Package",

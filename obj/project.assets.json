@@ -2,11 +2,11 @@
   "version": 3,
   "targets": {
     "net8.0": {
-      "Azure.AI.OpenAI/1.0.0-beta.6": {
+      "Azure.AI.OpenAI/2.1.0": {
         "type": "package",
         "dependencies": {
-          "Azure.Core": "1.34.0",
-          "System.Text.Json": "4.7.2"
+          "Azure.Core": "1.44.1",
+          "OpenAI": "2.1.0"
         },
         "compile": {
           "lib/netstandard2.0/Azure.AI.OpenAI.dll": {
@@ -248,6 +248,23 @@
         },
         "runtime": {
           "lib/netstandard1.3/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "OpenAI/2.1.0": {
+        "type": "package",
+        "dependencies": {
+          "System.ClientModel": "1.2.1",
+          "System.Diagnostics.DiagnosticSource": "6.0.1"
+        },
+        "compile": {
+          "lib/net6.0/OpenAI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/OpenAI.dll": {
             "related": ".xml"
           }
         }
@@ -1729,16 +1746,16 @@
     }
   },
   "libraries": {
-    "Azure.AI.OpenAI/1.0.0-beta.6": {
-      "sha512": "B4M3OaXDXoIqjl2W7nmTNMvTkL2Y5qhN7LU7kKEnwifxQdjcwCqw9LEKG4xr8+wge/S2X/ncPZ+bThAdyEgnCQ==",
+    "Azure.AI.OpenAI/2.1.0": {
+      "sha512": "doixr3tcsIcdzbzF9NxKt+6U0NKj6aPeOCPYONPsWjyf3gxVndVJAdjPcVdqeR/3vcRHXRgGnGlv+iXx5jMA4g==",
       "type": "package",
-      "path": "azure.ai.openai/1.0.0-beta.6",
+      "path": "azure.ai.openai/2.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "CHANGELOG.md",
         "README.md",
-        "azure.ai.openai.1.0.0-beta.6.nupkg.sha512",
+        "azure.ai.openai.2.1.0.nupkg.sha512",
         "azure.ai.openai.nuspec",
         "azureicon.png",
         "lib/netstandard2.0/Azure.AI.OpenAI.dll",
@@ -2029,6 +2046,24 @@
         "newtonsoft.json.10.0.3.nupkg.sha512",
         "newtonsoft.json.nuspec",
         "tools/install.ps1"
+      ]
+    },
+    "OpenAI/2.1.0": {
+      "sha512": "zl72nyP4O94ZyEoCLoE8qoc5vp8kSJmRuqR+UdK+jNIjFJGWJYjsb4rAGpMWWRTbPYuk82E8myMJdVQurMLDnQ==",
+      "type": "package",
+      "path": "openai/2.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "OpenAI.png",
+        "README.md",
+        "lib/net6.0/OpenAI.dll",
+        "lib/net6.0/OpenAI.xml",
+        "lib/netstandard2.0/OpenAI.dll",
+        "lib/netstandard2.0/OpenAI.xml",
+        "openai.2.1.0.nupkg.sha512",
+        "openai.nuspec"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
@@ -5841,7 +5876,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Azure.AI.OpenAI >= 1.0.0-beta.6",
+      "Azure.AI.OpenAI >= 2.1.0",
       "Azure.AI.Vision.ImageAnalysis >= 1.0.0",
       "Microsoft.Azure.CognitiveServices.Vision.ComputerVision >= 7.0.1"
     ]
@@ -5890,7 +5925,7 @@
         "dependencies": {
           "Azure.AI.OpenAI": {
             "target": "Package",
-            "version": "[1.0.0-beta.6, )"
+            "version": "[2.1.0, )"
           },
           "Azure.AI.Vision.ImageAnalysis": {
             "target": "Package",

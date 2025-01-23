@@ -39,3 +39,5 @@
 /workspaces/cloud-ai-challenge/bin/Debug/net8.0/Microsoft.Rest.ClientRuntime.Azure.dll
 /workspaces/cloud-ai-challenge/bin/Debug/net8.0/Newtonsoft.Json.dll
 /workspaces/cloud-ai-challenge/bin/Debug/net8.0/Azure.AI.OpenAI.dll
+/workspaces/cloud-ai-challenge/obj/Debug/net8.0/cloud-ai-challenge.sourcelink.json
+/workspaces/cloud-ai-challenge/bin/Debug/net8.0/OpenAI.dll
