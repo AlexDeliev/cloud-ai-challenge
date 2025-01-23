@@ -1,0 +1,83 @@
+﻿@page "/"
+@using Azure;
+@using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
+@using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+
+<PageTitle>Home</PageTitle>
+
+<h1>Computer Vision</h1>
+
+<p>Insert an image URL to analyze:</p>
+<textarea @bind="urlOrPrompt" rows="2" cols="50"
+          placeholder="Enter an image URL to analyze"></textarea>
+<br />
+<button @onclick="AnalyzeImage">Analyze Image</button>
+
+@if (!string.IsNullOrWhiteSpace(imageUrl))
+{
+    <img src="@imageUrl" alt="Image to analyze" width="300" height="300" />
+}
+
+<p>@captionFromAnalysis</p>
+
+@code {
+    string urlOrPrompt = "";
+    string imageUrl = "";
+    string captionFromAnalysis = "";
+
+    async Task AnalyzeImage()
+    {
+        // Reset results
+        captionFromAnalysis = "Analyzing image...";
+        StateHasChanged(); // Force a UI refresh.
+        Console.WriteLine("AnalyzeImage method triggered.");
+        imageUrl = urlOrPrompt; // Use the user-provided URL
+        
+        // Ensure the user provided an input
+        if (string.IsNullOrWhiteSpace(imageUrl))
+        {
+            captionFromAnalysis = "Error: Please provide a valid image URL.";
+            return;
+        }
+
+        // Get environment variables
+        string endpoint = Environment.GetEnvironmentVariable("VISION_ENDPOINT");
+        string key = Environment.GetEnvironmentVariable("VISION_KEY");
+
+        if (string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(key))
+        {
+            captionFromAnalysis = "Error: Vision API keys are missing in environment variables.";
+            return;
+        }
+
+        // Create ComputerVisionClient
+        var client = new ComputerVisionClient(
+            new ApiKeyServiceClientCredentials(key))
+        {
+            Endpoint = endpoint
+        };
+
+        try
+        {
+            // Analyze the image
+            var analysis = await client.AnalyzeImageAsync(imageUrl, new List<VisualFeatureTypes?>
+            {
+                VisualFeatureTypes.Description
+            });
+
+            // Extract and display the caption
+            if (analysis.Description?.Captions?.Count > 0)
+            {
+                captionFromAnalysis = $"Description: {analysis.Description.Captions[0].Text}";
+            }
+            else
+            {
+                captionFromAnalysis = "No description found for the image.";
+            }
+        }
+        catch (Exception ex)
+        {
+            captionFromAnalysis = $"Error analyzing image: {ex.Message}";
+        }
+    }
+}
