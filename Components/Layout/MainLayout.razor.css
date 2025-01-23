@@ -2,47 +2,66 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    background-color: #f9f9fb;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
 }
 
 main {
     flex: 1;
+    padding: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 .sidebar {
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    color: white;
+    padding: 1rem;
+    font-size: 0.9rem;
+    border-right: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .top-row {
     background-color: #f7f7f7;
     border-bottom: 1px solid #d6d5d5;
     justify-content: flex-end;
-    height: 3.5rem;
+    height: 4rem;
     display: flex;
     align-items: center;
+    padding: 0 1.5rem;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-    .top-row ::deep a, .top-row ::deep .btn-link {
-        white-space: nowrap;
-        margin-left: 1.5rem;
-        text-decoration: none;
-    }
+.top-row ::deep a, .top-row ::deep .btn-link {
+    white-space: nowrap;
+    margin-left: 1.5rem;
+    text-decoration: none;
+    color: #0056b3;
+    transition: color 0.2s ease-in-out;
+    font-weight: 500;
+}
 
-    .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
-        text-decoration: underline;
-    }
+.top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
+    text-decoration: underline;
+    color: #004085;
+}
 
-    .top-row ::deep a:first-child {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+.top-row ::deep a:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 @media (max-width: 640.98px) {
     .top-row {
         justify-content: space-between;
+        padding: 0 1rem;
     }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
         margin-left: 0;
+        font-size: 0.85rem;
     }
 }
 
@@ -52,16 +71,17 @@ main {
     }
 
     .sidebar {
-        width: 250px;
+        width: 280px;
         height: 100vh;
         position: sticky;
         top: 0;
+        box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
     }
 
     .top-row {
         position: sticky;
         top: 0;
-        z-index: 1;
+        z-index: 10;
     }
 
     .top-row.auth ::deep a:first-child {
@@ -77,20 +97,30 @@ main {
 }
 
 #blazor-error-ui {
-    background: lightyellow;
+    background: #fff3cd;
+    color: #856404;
     bottom: 0;
-    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.2);
     display: none;
     left: 0;
-    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    padding: 0.75rem 1.5rem;
     position: fixed;
     width: 100%;
     z-index: 1000;
+    font-size: 0.875rem;
+    border-top: 2px solid #ffeeba;
 }
 
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
-    }
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: 0.75rem;
+    color: #856404;
+    font-size: 1.2rem;
+    transition: color 0.2s ease-in-out;
+}
+
+#blazor-error-ui .dismiss:hover {
+    color: #533f03;
+}
