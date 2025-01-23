@@ -25,59 +25,54 @@
     string imageUrl = "";
     string captionFromAnalysis = "";
 
-    async Task AnalyzeImage()
+    void AnalyzeImage()
     {
-        // Reset results
-        captionFromAnalysis = "Analyzing image...";
-        StateHasChanged(); // Force a UI refresh.
-        Console.WriteLine("AnalyzeImage method triggered.");
-        imageUrl = urlOrPrompt; // Use the user-provided URL
+
+        var serviceOptions = new VisionServiceOptions(
+        Environment.GetEnvironmentVariable("VISION_ENDPOINT"),
+        new AzureKeyCredential(Environment.GetEnvironmentVariable("VISION_KEY")));
+        // if keys are not set in environment variables, display in UI that environtment variables dont exist
+       
+
+        using var imageSource = VisionSource.FromUrl(
+        new Uri(urlOrPrompt));
+        imageUrl = new Uri(urlOrPrompt);
+
+        var analysisOptions = new ImageAnalysisOptions()
+            {
+                Features = ImageAnalysisFeature.CropSuggestions | ImageAnalysisFeature.Caption
+            };
+
+        using var analyzer = new ImageAnalyzer(serviceOptions, imageSource, analysisOptions);
+
+        var result = analyzer.Analyze();
+
+        if (result.Reason == ImageAnalysisResultReason.Analyzed)
+        {
+            Console.WriteLine($" Image height = {result.ImageHeight}");
+            Console.WriteLine($" Image width = {result.ImageWidth}");
+            Console.WriteLine($" Model version = {result.ModelVersion}");
+
+            if (result.Caption != null)
+            {
+                Console.WriteLine(" Caption:");
+                Console.WriteLine($"   \"{result.Caption.Content}\", Confidence {result.Caption.Confidence:0.0000}");
+                captionFromAnalysis = result.Caption.Content;
+            }
+
         
-        // Ensure the user provided an input
-        if (string.IsNullOrWhiteSpace(imageUrl))
+        }
+        else
         {
-            captionFromAnalysis = "Error: Please provide a valid image URL.";
-            return;
+            var errorDetails = ImageAnalysisErrorDetails.FromResult(result);
+            Console.WriteLine(" Analysis failed.");
+            Console.WriteLine($"   Error reason : {errorDetails.Reason}");
+            Console.WriteLine($"   Error code : {errorDetails.ErrorCode}");
+            Console.WriteLine($"   Error message: {errorDetails.Message}");
         }
 
-        // Get environment variables
-        string endpoint = Environment.GetEnvironmentVariable("VISION_ENDPOINT");
-        string key = Environment.GetEnvironmentVariable("VISION_KEY");
+        
 
-        if (string.IsNullOrEmpty(endpoint) || string.IsNullOrEmpty(key))
-        {
-            captionFromAnalysis = "Error: Vision API keys are missing in environment variables.";
-            return;
-        }
 
-        // Create ComputerVisionClient
-        var client = new ComputerVisionClient(
-            new ApiKeyServiceClientCredentials(key))
-        {
-            Endpoint = endpoint
-        };
-
-        try
-        {
-            // Analyze the image
-            var analysis = await client.AnalyzeImageAsync(imageUrl, new List<VisualFeatureTypes?>
-            {
-                VisualFeatureTypes.Description
-            });
-
-            // Extract and display the caption
-            if (analysis.Description?.Captions?.Count > 0)
-            {
-                captionFromAnalysis = $"Description: {analysis.Description.Captions[0].Text}";
-            }
-            else
-            {
-                captionFromAnalysis = "No description found for the image.";
-            }
-        }
-        catch (Exception ex)
-        {
-            captionFromAnalysis = $"Error analyzing image: {ex.Message}";
-        }
     }
 }
