@@ -1,6 +1,7 @@
 # Cloud AI Challenge: Image Analysis and Generation App
 
 This project is built as part of the **Microsoft Learn Challenge Project** to integrate image analysis and generation features into a .NET web application using Azure AI services.
+![Cloud Project Scheme](https://github.com/user-attachments/assets/0b2997ee-610c-4911-adb6-e82c6a4d035b)
 
 ## Project Overview
 The application demonstrates how to:
